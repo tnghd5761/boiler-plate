@@ -2,6 +2,9 @@ const express = require('express')
 const app = express()
 const port = 5000
 const bodyParser = require('body-parser');
+
+const config = require('./config/key');
+
 const { User } = require("./models/User");
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -9,7 +12,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 const mongoose = require('mongoose')
-mongoose.connect('mongodb+srv://suhong:jang8024@@@boilerplate.bffwg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+mongoose.connect(config.mongoURI, {
 	useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false
 }).then(() => {
 	console.log('MongoDB Connected...')
@@ -18,7 +21,7 @@ mongoose.connect('mongodb+srv://suhong:jang8024@@@boilerplate.bffwg.mongodb.net/
 })
 
 app.get('/', (req, res) => {
-	res.send('Hello World!')
+	res.send('Hello World! 안녕하세요!')
 })
 
 app.post('/register', (req, res) => {
